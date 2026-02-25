@@ -1,6 +1,5 @@
 import HeroSection from "@/components/wedding/HeroSection";
-import OurStorySection from "@/components/wedding/OurStorySection";
-import EventDetailsSection from "@/components/wedding/EventDetailsSection";
+import EventsSection from "@/components/wedding/EventsSection";
 import CountdownSection from "@/components/wedding/CountdownSection";
 import GallerySection from "@/components/wedding/GallerySection";
 import RSVPSection from "@/components/wedding/RSVPSection";
@@ -10,8 +9,7 @@ const Index = () => {
   return (
     <main className="overflow-x-hidden">
       <HeroSection />
-      <OurStorySection />
-      <EventDetailsSection />
+      <EventsSection />
       <CountdownSection />
       <GallerySection />
       <RSVPSection />

@@ -54,12 +54,29 @@ export default {
         },
         gold: "hsl(var(--gold))",
         "gold-light": "hsl(var(--gold-light))",
-        blush: "hsl(var(--blush))",
-        "blush-light": "hsl(var(--blush-light))",
-        sage: "hsl(var(--sage))",
-        "sage-light": "hsl(var(--sage-light))",
         ivory: "hsl(var(--ivory))",
         "ivory-dark": "hsl(var(--ivory-dark))",
+        haldi: {
+          bg: "hsl(var(--haldi-bg))",
+          accent: "hsl(var(--haldi-accent))",
+          text: "hsl(var(--haldi-text))",
+        },
+        mehendi: {
+          bg: "hsl(var(--mehendi-bg))",
+          accent: "hsl(var(--mehendi-accent))",
+          text: "hsl(var(--mehendi-text))",
+        },
+        sangeet: {
+          bg: "hsl(var(--sangeet-bg))",
+          accent: "hsl(var(--sangeet-accent))",
+          text: "hsl(var(--sangeet-text))",
+          glow: "hsl(var(--sangeet-glow))",
+        },
+        wedding: {
+          bg: "hsl(var(--wedding-bg))",
+          accent: "hsl(var(--wedding-accent))",
+          text: "hsl(var(--wedding-text))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

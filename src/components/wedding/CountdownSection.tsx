@@ -3,15 +3,8 @@ import { motion } from "framer-motion";
 
 const WEDDING_DATE = new Date("2026-12-15T11:00:00+05:30").getTime();
 
-interface TimeLeft {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-}
-
 const CountdownSection = () => {
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
     const tick = () => {
@@ -36,7 +29,7 @@ const CountdownSection = () => {
   ];
 
   return (
-    <section className="section-padding bg-background">
+    <section className="section-padding bg-ivory-dark">
       <div className="max-w-3xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -44,11 +37,11 @@ const CountdownSection = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-sm tracking-[0.3em] uppercase text-gold font-body mb-3">
-            Counting Down
+          <p className="text-xs tracking-[0.3em] uppercase text-gold font-body mb-3">
+            Counting Down To
           </p>
           <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-4">
-            Until We Say I Do
+            The Big Day
           </h2>
           <div className="ornament-divider mb-12">
             <span className="text-gold font-script text-2xl">&</span>
@@ -63,7 +56,7 @@ const CountdownSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-card border border-border p-6 md:p-8 rounded-lg"
+              className="bg-background border border-border p-6 md:p-8 rounded-xl"
             >
               <span className="block font-serif text-4xl md:text-5xl text-gold mb-2">
                 {String(unit.value).padStart(2, "0")}

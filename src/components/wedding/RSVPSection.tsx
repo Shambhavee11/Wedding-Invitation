@@ -2,11 +2,14 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Send, CheckCircle } from "lucide-react";
 
+const eventOptions = ["Haldi", "Mehendi", "Sangeet", "Wedding"];
+
 const RSVPSection = () => {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
+    events: [] as string[],
     guests: "1",
     attending: "yes",
     message: "",
@@ -23,11 +26,20 @@ const RSVPSection = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const toggleEvent = (event: string) => {
+    setForm((prev) => ({
+      ...prev,
+      events: prev.events.includes(event)
+        ? prev.events.filter((e) => e !== event)
+        : [...prev.events, event],
+    }));
+  };
+
   const inputClasses =
-    "w-full px-4 py-3 bg-background border border-border rounded-sm font-body text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-gold transition-colors duration-300";
+    "w-full px-4 py-3 bg-background border border-border rounded-lg font-body text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-gold transition-colors duration-300";
 
   return (
-    <section id="rsvp" className="section-padding bg-background">
+    <section id="rsvp" className="section-padding bg-ivory-dark">
       <div className="max-w-xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -36,7 +48,7 @@ const RSVPSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <p className="text-sm tracking-[0.3em] uppercase text-gold font-body mb-3">
+          <p className="text-xs tracking-[0.3em] uppercase text-gold font-body mb-3">
             Be Our Guest
           </p>
           <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-4">
@@ -46,8 +58,7 @@ const RSVPSection = () => {
             <Heart className="w-4 h-4 text-gold fill-gold" />
           </div>
           <p className="text-muted-foreground font-body text-sm max-w-md mx-auto">
-            We would be honored to have you celebrate this special day with us.
-            Please let us know if you can attend.
+            We would be honored to have you celebrate with us. Please select the events you'd like to attend.
           </p>
         </motion.div>
 
@@ -81,6 +92,30 @@ const RSVPSection = () => {
                 onChange={handleChange}
                 className={inputClasses}
               />
+
+              {/* Event Selection */}
+              <div>
+                <p className="font-body text-xs tracking-[0.15em] uppercase text-muted-foreground mb-3">
+                  Select Events
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  {eventOptions.map((event) => (
+                    <button
+                      key={event}
+                      type="button"
+                      onClick={() => toggleEvent(event)}
+                      className={`px-4 py-2.5 border rounded-lg font-body text-sm transition-all duration-300 ${
+                        form.events.includes(event)
+                          ? "bg-gold text-primary-foreground border-gold"
+                          : "border-border text-muted-foreground hover:border-gold"
+                      }`}
+                    >
+                      {event}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <select
                   name="guests"
@@ -104,6 +139,7 @@ const RSVPSection = () => {
                   <option value="no">Regretfully Decline</option>
                 </select>
               </div>
+
               <textarea
                 name="message"
                 placeholder="A message for the couple (optional)"
@@ -112,9 +148,10 @@ const RSVPSection = () => {
                 onChange={handleChange}
                 className={inputClasses + " resize-none"}
               />
+
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 px-8 py-3.5 bg-gold text-primary-foreground font-body text-sm tracking-[0.2em] uppercase hover:opacity-90 transition-opacity duration-300"
+                className="w-full flex items-center justify-center gap-2 px-8 py-3.5 bg-gold text-primary-foreground font-body text-xs tracking-[0.25em] uppercase hover:opacity-90 transition-opacity duration-300 rounded-lg"
               >
                 <Send className="w-4 h-4" />
                 Send RSVP
@@ -126,14 +163,14 @@ const RSVPSection = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="text-center py-12 bg-card border border-border rounded-lg"
+              className="text-center py-16 bg-background border border-border rounded-2xl"
             >
-              <CheckCircle className="w-12 h-12 text-sage mx-auto mb-4" />
-              <h3 className="font-serif text-2xl text-foreground mb-2">
+              <CheckCircle className="w-14 h-14 text-accent mx-auto mb-5" />
+              <h3 className="font-serif text-2xl text-foreground mb-3">
                 Thank You!
               </h3>
-              <p className="text-muted-foreground font-body text-sm">
-                We've received your RSVP and can't wait to celebrate with you.
+              <p className="text-muted-foreground font-body text-sm max-w-sm mx-auto">
+                We've received your RSVP. We can't wait to celebrate with you!
               </p>
             </motion.div>
           )}

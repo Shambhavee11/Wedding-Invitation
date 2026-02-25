@@ -1,5 +1,53 @@
 import { motion } from "framer-motion";
-import heroFloral from "@/assets/hero-floral.png";
+import { useMemo } from "react";
+
+/* Golden floating particles */
+const FloatingParticles = () => {
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 30 }, (_, i) => ({
+        id: i,
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        size: 2 + Math.random() * 4,
+        duration: 4 + Math.random() * 6,
+        delay: Math.random() * 5,
+        drift: (Math.random() - 0.5) * 40,
+      })),
+    []
+  );
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]">
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          className="absolute rounded-full"
+          style={{
+            left: p.left,
+            top: p.top,
+            width: p.size,
+            height: p.size,
+            background: `radial-gradient(circle, hsl(var(--gold)) 0%, transparent 70%)`,
+            boxShadow: `0 0 ${p.size * 3}px hsl(var(--gold) / 0.6)`,
+          }}
+          animate={{
+            y: [0, -80 - Math.random() * 60, 0],
+            x: [0, p.drift, 0],
+            opacity: [0, 0.9, 0],
+            scale: [0.5, 1.2, 0.5],
+          }}
+          transition={{
+            duration: p.duration,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: p.delay,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 const HeroSection = () => {
   const scrollToEvents = () => {
@@ -7,28 +55,43 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
-      {/* Floral background */}
-      <div className="absolute inset-0 opacity-15 pointer-events-none">
-        <img src={heroFloral} alt="" className="w-full h-full object-cover" />
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background/90 pointer-events-none" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Cinematic background video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        poster=""
+      >
+        <source src="/hero-bg.mp4" type="video/mp4" />
+      </video>
 
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 bg-black/50 z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60 z-[1]" />
+
+      {/* Floating golden particles */}
+      <FloatingParticles />
+
+      {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xs md:text-sm tracking-[0.35em] uppercase text-gold font-body mb-8"
+          transition={{ duration: 1, delay: 0.5 }}
+          className="text-xs md:text-sm tracking-[0.35em] uppercase text-gold-light font-body mb-8"
         >
           Together with their families invite you to celebrate
         </motion.p>
 
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="font-script text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-foreground mb-4 leading-tight"
+          initial={{ opacity: 0, scale: 0.9, y: 30 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1.4, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="font-script text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-white mb-4 leading-tight drop-shadow-[0_2px_20px_rgba(198,167,94,0.4)]"
         >
           Aarav & Meera
         </motion.h1>
@@ -36,23 +99,26 @@ const HeroSection = () => {
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-          className="h-px w-48 mx-auto bg-gold mb-6"
+          transition={{ duration: 1, delay: 1.5 }}
+          className="h-px w-48 mx-auto mb-6"
+          style={{
+            background: `linear-gradient(90deg, transparent, hsl(var(--gold)), transparent)`,
+          }}
         />
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.1 }}
-          className="font-serif text-lg md:text-xl text-muted-foreground tracking-wide mb-2"
+          transition={{ duration: 0.8, delay: 1.8 }}
+          className="font-serif text-lg md:text-xl text-white/80 tracking-wide mb-2"
         >
           December 12 – 15, 2026
         </motion.p>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.3 }}
-          className="font-body text-sm text-muted-foreground/70 tracking-wide mb-10"
+          transition={{ duration: 0.8, delay: 2 }}
+          className="font-body text-sm text-white/50 tracking-wide mb-10"
         >
           New Delhi, India
         </motion.p>
@@ -60,9 +126,9 @@ const HeroSection = () => {
         <motion.button
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.5 }}
+          transition={{ duration: 0.6, delay: 2.2 }}
           onClick={scrollToEvents}
-          className="px-10 py-3.5 border border-gold text-gold font-body text-xs tracking-[0.25em] uppercase hover:bg-gold hover:text-primary-foreground transition-all duration-500"
+          className="px-10 py-3.5 border border-gold text-gold font-body text-xs tracking-[0.25em] uppercase hover:bg-gold hover:text-primary-foreground transition-all duration-500 backdrop-blur-sm bg-black/20"
         >
           View Events
         </motion.button>
@@ -72,8 +138,8 @@ const HeroSection = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        transition={{ delay: 3, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}

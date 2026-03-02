@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Send, CheckCircle } from "lucide-react";
+import emailjs from "@emailjs/browser";
 
 const eventOptions = ["Haldi", "Mehendi", "Sangeet", "Wedding"];
 
@@ -15,10 +16,30 @@ const RSVPSection = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    await emailjs.send(
+      "service_i1ozt75",
+      "template_5nc4v0m",
+      {
+        name: form.name,
+        email: form.email,
+        events: form.events.join(", "),
+        guests: form.guests,
+        attending: form.attending,
+        message: form.message,
+      },
+      "vBffba4EYTnatSC9t"
+    );
+
     setSubmitted(true);
-  };
+  } catch (error) {
+    console.error("Email send failed:", error);
+    alert("Failed to send RSVP. Please try again.");
+  }
+};
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>

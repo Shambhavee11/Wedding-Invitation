@@ -1,21 +1,28 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-const WEDDING_DATE = new Date("2026-12-15T11:00:00+05:30").getTime();
+const WEDDING_DATE = new Date("2026-04-28T11:00:00+05:30").getTime();
 
 const CountdownSection = () => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
     const tick = () => {
-      const diff = Math.max(0, WEDDING_DATE - Date.now());
-      setTimeLeft({
-        days: Math.floor(diff / 86400000),
-        hours: Math.floor((diff % 86400000) / 3600000),
-        minutes: Math.floor((diff % 3600000) / 60000),
-        seconds: Math.floor((diff % 60000) / 1000),
-      });
-    };
+  const diff = WEDDING_DATE - Date.now();
+
+  if (diff <= 0) {
+    clearInterval(id);
+    setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+    return;
+  }
+
+  setTimeLeft({
+    days: Math.floor(diff / 86400000),
+    hours: Math.floor((diff % 86400000) / 3600000),
+    minutes: Math.floor((diff % 3600000) / 60000),
+    seconds: Math.floor((diff % 60000) / 1000),
+  });
+};
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);

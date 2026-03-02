@@ -84,7 +84,7 @@ const HeroSection = () => {
           transition={{ duration: 1, delay: 0.5 }}
           className="text-xs md:text-sm tracking-[0.35em] uppercase text-gold-light font-body mb-8"
         >
-          Together with their families invite you to celebrate
+          The Shukla family warmly invites you to celebrate the wedding ceremony of
         </motion.p>
 
         <motion.h1
@@ -93,7 +93,7 @@ const HeroSection = () => {
           transition={{ duration: 1.4, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="font-script text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-white mb-4 leading-tight drop-shadow-[0_2px_20px_rgba(198,167,94,0.4)]"
         >
-          Aarav & Meera
+          Shreya & Vivek
         </motion.h1>
 
         <motion.div
@@ -112,7 +112,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 1.8 }}
           className="font-serif text-lg md:text-xl text-white/80 tracking-wide mb-2"
         >
-          December 12 – 15, 2026
+          April 27-30, 2026
         </motion.p>
         <motion.p
           initial={{ opacity: 0 }}
@@ -120,18 +120,18 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 2 }}
           className="font-body text-sm text-white/50 tracking-wide mb-10"
         >
-          New Delhi, India
+          Gorakhpur, Uttar Pradesh
         </motion.p>
 
         <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 2.2 }}
-          onClick={scrollToEvents}
-          className="px-10 py-3.5 border border-gold text-gold font-body text-xs tracking-[0.25em] uppercase hover:bg-gold hover:text-primary-foreground transition-all duration-500 backdrop-blur-sm bg-black/20"
-        >
-          View Events
-        </motion.button>
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, delay: 2.2 }}
+  onClick={scrollToEvents}
+  className="shimmer-btn px-10 py-3.5 border border-gold text-gold font-body text-xs tracking-[0.25em] uppercase hover:bg-gold hover:text-primary-foreground transition-all duration-500 backdrop-blur-sm bg-black/20"
+>
+  View Events
+</motion.button>
       </div>
 
       {/* Scroll indicator */}

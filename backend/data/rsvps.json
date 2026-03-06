@@ -1,0 +1,301 @@
+[
+  {
+    "id": 1772777077964,
+    "name": "Shambhavee Shukla",
+    "email": "shambhaveeshukla11@gmail.com",
+    "events": [
+      "Haldi",
+      "Sangeet",
+      "Wedding",
+      "Mehendi"
+    ],
+    "guests": "4",
+    "attending": "yes",
+    "message": "hi, happy to attend!!!",
+    "submittedAt": "2026-03-06T06:04:37.964Z"
+  },
+  {
+    "id": 1772777078568,
+    "name": "Shambhavee Shukla",
+    "email": "shambhaveeshukla11@gmail.com",
+    "events": [
+      "Haldi",
+      "Sangeet",
+      "Wedding",
+      "Mehendi"
+    ],
+    "guests": "4",
+    "attending": "yes",
+    "message": "hi, happy to attend!!!",
+    "submittedAt": "2026-03-06T06:04:38.568Z"
+  },
+  {
+    "id": 1772777155460,
+    "name": "Shambhavee Shukla",
+    "email": "shambhaveeshukla11@gmail.com",
+    "events": [
+      "Haldi",
+      "Sangeet",
+      "Wedding",
+      "Mehendi"
+    ],
+    "guests": "4",
+    "attending": "yes",
+    "message": "hi, happy to attend!!!",
+    "submittedAt": "2026-03-06T06:05:55.460Z"
+  },
+  {
+    "id": 1772777155966,
+    "name": "Shambhavee Shukla",
+    "email": "shambhaveeshukla11@gmail.com",
+    "events": [
+      "Haldi",
+      "Sangeet",
+      "Wedding",
+      "Mehendi"
+    ],
+    "guests": "4",
+    "attending": "yes",
+    "message": "hi, happy to attend!!!",
+    "submittedAt": "2026-03-06T06:05:55.966Z"
+  },
+  {
+    "id": 1772777444088,
+    "name": "Shambhavee Shukla",
+    "email": "shambhaveeshukla11@gmail.com",
+    "events": [
+      "Haldi",
+      "Wedding"
+    ],
+    "guests": "4",
+    "attending": "yes",
+    "message": "hiiii",
+    "submittedAt": "2026-03-06T06:10:44.088Z"
+  },
+  {
+    "id": 1772777444588,
+    "name": "Shambhavee Shukla",
+    "email": "shambhaveeshukla11@gmail.com",
+    "events": [
+      "Haldi",
+      "Wedding"
+    ],
+    "guests": "4",
+    "attending": "yes",
+    "message": "hiiii",
+    "submittedAt": "2026-03-06T06:10:44.588Z"
+  },
+  {
+    "id": 1772777463641,
+    "name": "Shambhavee Shukla",
+    "email": "shambhaveeshukla11@gmail.com",
+    "events": [
+      "Haldi",
+      "Sangeet",
+      "Wedding",
+      "Mehendi"
+    ],
+    "guests": "4",
+    "attending": "yes",
+    "message": "hi, happy to attend!!!",
+    "submittedAt": "2026-03-06T06:11:03.641Z"
+  },
+  {
+    "id": 1772777464111,
+    "name": "Shambhavee Shukla",
+    "email": "shambhaveeshukla11@gmail.com",
+    "events": [
+      "Haldi",
+      "Sangeet",
+      "Wedding",
+      "Mehendi"
+    ],
+    "guests": "4",
+    "attending": "yes",
+    "message": "hi, happy to attend!!!",
+    "submittedAt": "2026-03-06T06:11:04.111Z"
+  },
+  {
+    "id": 1772777629319,
+    "name": "Shambhavee Shukla",
+    "email": "shambhaveeshukla11@gmail.com",
+    "events": [
+      "Haldi",
+      "Sangeet",
+      "Wedding",
+      "Mehendi"
+    ],
+    "guests": "4",
+    "attending": "yes",
+    "message": "hi, happy to attend!!!",
+    "submittedAt": "2026-03-06T06:13:49.319Z"
+  },
+  {
+    "id": 1772777631623,
+    "name": "Shambhavee Shukla",
+    "email": "shambhaveeshukla11@gmail.com",
+    "events": [
+      "Haldi",
+      "Sangeet",
+      "Wedding",
+      "Mehendi"
+    ],
+    "guests": "4",
+    "attending": "yes",
+    "message": "hi, happy to attend!!!",
+    "submittedAt": "2026-03-06T06:13:51.623Z"
+  },
+  {
+    "id": 1772777644168,
+    "name": "Shambhavee Shukla",
+    "email": "shambhaveeshukla11@gmail.com",
+    "events": [],
+    "guests": "1",
+    "attending": "yes",
+    "message": "hiii",
+    "submittedAt": "2026-03-06T06:14:04.168Z"
+  },
+  {
+    "id": 1772777646110,
+    "name": "Shambhavee Shukla",
+    "email": "shambhaveeshukla11@gmail.com",
+    "events": [],
+    "guests": "1",
+    "attending": "yes",
+    "message": "hiii",
+    "submittedAt": "2026-03-06T06:14:06.110Z"
+  },
+  {
+    "id": 1772777646657,
+    "name": "Shambhavee Shukla",
+    "email": "shambhaveeshukla11@gmail.com",
+    "events": [],
+    "guests": "1",
+    "attending": "yes",
+    "message": "hiii",
+    "submittedAt": "2026-03-06T06:14:06.657Z"
+  },
+  {
+    "id": 1772777646877,
+    "name": "Shambhavee Shukla",
+    "email": "shambhaveeshukla11@gmail.com",
+    "events": [],
+    "guests": "1",
+    "attending": "yes",
+    "message": "hiii",
+    "submittedAt": "2026-03-06T06:14:06.877Z"
+  },
+  {
+    "id": 1772778188498,
+    "name": "Ramanujan",
+    "email": "shuklashambhavee11@gmail.com",
+    "events": [
+      "Haldi",
+      "Wedding",
+      "Mehendi",
+      "Sangeet"
+    ],
+    "guests": "4",
+    "attending": "yes",
+    "message": "hiii, really excited!!!",
+    "submittedAt": "2026-03-06T06:23:08.498Z"
+  },
+  {
+    "id": 1772778192791,
+    "name": "Ramanujan",
+    "email": "shuklashambhavee11@gmail.com",
+    "events": [
+      "Haldi",
+      "Wedding",
+      "Mehendi",
+      "Sangeet"
+    ],
+    "guests": "4",
+    "attending": "yes",
+    "message": "hiii, really excited!!!",
+    "submittedAt": "2026-03-06T06:23:12.791Z"
+  },
+  {
+    "id": 1772778263630,
+    "name": "Kinderjoy",
+    "email": "shuklashambhavee11@gmail.com",
+    "events": [],
+    "guests": "1",
+    "attending": "no",
+    "message": "can't really ",
+    "submittedAt": "2026-03-06T06:24:23.630Z"
+  },
+  {
+    "id": 1772779779778,
+    "name": "Mamta Shukla",
+    "email": "shuklashambhavee11@gmail.com",
+    "events": [
+      "Haldi",
+      "Sangeet",
+      "Mehendi",
+      "Wedding"
+    ],
+    "guests": "2",
+    "attending": "yes",
+    "message": "sada suhagan rahe!!",
+    "submittedAt": "2026-03-06T06:49:39.778Z"
+  },
+  {
+    "id": 1772779788704,
+    "name": "Mamta Shukla",
+    "email": "shuklashambhavee11@gmail.com",
+    "events": [
+      "Haldi",
+      "Sangeet",
+      "Mehendi",
+      "Wedding"
+    ],
+    "guests": "2",
+    "attending": "yes",
+    "message": "sada suhagan rahe!!",
+    "submittedAt": "2026-03-06T06:49:48.704Z"
+  },
+  {
+    "id": 1772779791750,
+    "name": "Mamta Shukla",
+    "email": "shuklashambhavee11@gmail.com",
+    "events": [
+      "Haldi",
+      "Sangeet",
+      "Mehendi",
+      "Wedding"
+    ],
+    "guests": "2",
+    "attending": "yes",
+    "message": "sada suhagan rahe!!",
+    "submittedAt": "2026-03-06T06:49:51.750Z"
+  },
+  {
+    "id": 1772804198760,
+    "name": "Prafulla Shukla",
+    "email": "shuklashambhavee11@gmail.com",
+    "events": [
+      "Haldi",
+      "Sangeet",
+      "Wedding",
+      "Mehendi"
+    ],
+    "guests": "4",
+    "attending": "yes",
+    "message": "hello , keep shining!!",
+    "submittedAt": "2026-03-06T13:36:38.760Z"
+  },
+  {
+    "id": 1772805731832,
+    "name": "Shambhavee Shukla",
+    "email": "shuklashambhavee11@gmail.com",
+    "events": [
+      "Haldi",
+      "Wedding"
+    ],
+    "guests": "2",
+    "attending": "yes",
+    "message": "happy to attend!!",
+    "submittedAt": "2026-03-06T14:02:11.832Z"
+  }
+]

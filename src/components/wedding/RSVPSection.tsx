@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Send, CheckCircle } from "lucide-react";
-import emailjs from "@emailjs/browser";
 
 const eventOptions = ["Haldi", "Mehendi", "Sangeet", "Wedding"];
 
 const RSVPSection = () => {
   const [submitted, setSubmitted] = useState(false);
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -17,34 +17,51 @@ const RSVPSection = () => {
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    await emailjs.send(
-      "service_i1ozt75",
-      "template_5nc4v0m",
-      {
-        name: form.name,
-        email: form.email,
-        events: form.events.join(", "),
-        guests: form.guests,
-        attending: form.attending,
-        message: form.message,
-      },
-      "vBffba4EYTnatSC9t"
-    );
+    try {
+      const response = await fetch("http://localhost:5000/api/rsvp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
 
-    setSubmitted(true);
-  } catch (error) {
-    console.error("Email send failed:", error);
-    alert("Failed to send RSVP. Please try again.");
-  }
-};
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitted(true);
+
+        setForm({
+          name: "",
+          email: "",
+          events: [],
+          guests: "1",
+          attending: "yes",
+          message: "",
+        });
+      } else {
+        alert(data.message || "Failed to submit RSVP.");
+      }
+    } catch (error) {
+      console.error("RSVP submit failed:", error);
+      alert("Failed to send RSVP. Please try again.");
+    }
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "attending" && value === "no") {
+      setForm({ ...form, attending: value, guests: "0" });
+    } else if (name === "attending" && value === "yes" && form.guests === "0") {
+      setForm({ ...form, attending: value, guests: "1" });
+    } else {
+      setForm({ ...form, [name]: value });
+    }
   };
 
   const toggleEvent = (event: string) => {
@@ -65,21 +82,25 @@ const RSVPSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
           <p className="text-xs tracking-[0.3em] uppercase text-gold font-body mb-3">
             Be Our Guest
           </p>
+
           <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-4">
             RSVP
           </h2>
+
           <div className="ornament-divider">
             <Heart className="w-4 h-4 text-gold fill-gold" />
           </div>
+
           <p className="text-muted-foreground font-body text-sm max-w-md mx-auto">
-            We would be honored to have you celebrate with us. Please select the events you'd like to attend.
+            We would be honored to have you celebrate with us. Please select the
+            events you'd like to attend.
           </p>
         </motion.div>
 
@@ -88,9 +109,8 @@ const RSVPSection = () => {
             <motion.form
               key="form"
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
               onSubmit={handleSubmit}
               className="space-y-5"
@@ -104,6 +124,7 @@ const RSVPSection = () => {
                 onChange={handleChange}
                 className={inputClasses}
               />
+
               <input
                 type="email"
                 name="email"
@@ -114,11 +135,11 @@ const RSVPSection = () => {
                 className={inputClasses}
               />
 
-              {/* Event Selection */}
               <div>
                 <p className="font-body text-xs tracking-[0.15em] uppercase text-muted-foreground mb-3">
                   Select Events
                 </p>
+
                 <div className="grid grid-cols-2 gap-2">
                   {eventOptions.map((event) => (
                     <button
@@ -139,18 +160,6 @@ const RSVPSection = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <select
-                  name="guests"
-                  value={form.guests}
-                  onChange={handleChange}
-                  className={inputClasses}
-                >
-                  {[1, 2, 3, 4, 5].map((n) => (
-                    <option key={n} value={n}>
-                      {n} {n === 1 ? "Guest" : "Guests"}
-                    </option>
-                  ))}
-                </select>
-                <select
                   name="attending"
                   value={form.attending}
                   onChange={handleChange}
@@ -158,6 +167,20 @@ const RSVPSection = () => {
                 >
                   <option value="yes">Joyfully Accept</option>
                   <option value="no">Regretfully Decline</option>
+                </select>
+
+                <select
+                  name="guests"
+                  value={form.guests}
+                  onChange={handleChange}
+                  className={inputClasses}
+                >
+                  <option value="0">None</option>
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <option key={n} value={n}>
+                      {n} {n === 1 ? "Guest" : "Guests"}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -187,9 +210,11 @@ const RSVPSection = () => {
               className="text-center py-16 bg-background border border-border rounded-2xl"
             >
               <CheckCircle className="w-14 h-14 text-accent mx-auto mb-5" />
+
               <h3 className="font-serif text-2xl text-foreground mb-3">
                 Thank You!
               </h3>
+
               <p className="text-muted-foreground font-body text-sm max-w-sm mx-auto">
                 We've received your RSVP. We can't wait to celebrate with you!
               </p>

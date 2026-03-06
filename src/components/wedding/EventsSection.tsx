@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
-import { Sun, Leaf, Music, Heart, MapPin, Clock, Calendar, ExternalLink } from "lucide-react";
+import { Sun, Leaf, Music, Heart, MapPin, Clock, Calendar, ExternalLink, Flower } from "lucide-react";
 import sangeetBg from "@/assets/sangeet.jpg";
 import mehendiBg from "@/assets/mehendi.jpg";
 import haldiBg from "@/assets/haldi.jpg";
 import weddingBg from "@/assets/wedding1.png";
+import vidaaiBg from "@/assets/vidaai.jpg";
 
 interface EventData {
   id: string;
@@ -109,12 +110,32 @@ const events: EventData[] = [
     couple: "Shreya & Vivek",
     groom: "Vivek Ram Tripathi",
     bride: "Shreya Shukla",
-    groomParents: "Mr. Devi Sharan Tripathi",
-    brideParents: "Mr. Prafulla Shukla & Mrs. Mamta Shukla",
+    groomParents: "Late Mrs. Tripathi & Mr. Devi Sharan Ram Tripathi",
+    brideParents: "Mrs. Mamta Shukla & Mr. Prafulla Shukla ",
     btnClass: "relative overflow-hidden border-yellow-400 text-yellow-400 hover:text-black hover:bg-yellow-400 transition-all duration-500 group",
     calendarUrl:
       "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Ceremony&dates=20261215T053000Z/20261215T103000Z",
   },
+  {
+  id: "vidai",
+  emoji: "🌸",
+  icon: Flower,
+  title: "Vidai",
+  tagline: "A heartfelt farewell",
+  date: "April 30, 2026",
+  time: "10:00 AM",
+  venue: "Sarla Bhawan",
+  address: "Sarla Bhawan, Turkmanpur, Gorakhpur, Uttar Pradesh",
+  description:"Babul ki duaon ko saath lekar,Aaj wo nayi zindagi ki raah par chali hai,Aankhon mein aansu aur dil mein khushiyan,Ek beti apni nayi duniya basane chali hai.",
+  bgClass: "bg-white",
+  accentClass: "text-white",
+  textClass: "text-white",
+  borderClass: "border-white/30",
+  btnClass:
+    "relative overflow-hidden border-yellow-400 text-yellow-400 hover:text-black hover:bg-yellow-400 transition-all duration-500 group",
+  calendarUrl:
+    "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Vidai&dates=20261216T043000Z/20261216T063000Z",
+}
 ];
 
 /* Event Card */
@@ -127,7 +148,7 @@ const EventCard = ({ event, index }: { event: EventData; index: number }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={`relative ${event.borderClass} border rounded-2xl p-8 md:p-12 overflow-hidden ${event.id === "sangeet" || event.id === "mehendi" || event.id === "haldi" || event.id === "wedding"
+      className={`relative ${event.borderClass} border rounded-2xl p-8 md:p-12 overflow-hidden ${event.id === "sangeet" || event.id === "mehendi" || event.id === "haldi" || event.id === "wedding" || event.id === "vidai"
         ? "bg-cover bg-center"
         : event.bgClass
         }`}
@@ -140,10 +161,12 @@ const EventCard = ({ event, index }: { event: EventData; index: number }) => {
               ? { backgroundImage: `url(${haldiBg})` }
               : event.id === "wedding"
                 ? { backgroundImage: `url(${weddingBg})` }
+                : event.id === "vidai"
+                  ? { backgroundImage: `url(${vidaaiBg})` }
                 : undefined
       }
     >
-      {(event.id === "sangeet" || event.id === "mehendi" || event.id === "haldi" || event.id === "wedding") && (
+      {(event.id === "sangeet" || event.id === "mehendi" || event.id === "haldi" || event.id === "wedding" || event.id === "vidai") && (
         <div className="absolute inset-0 bg-black/50"></div>
       )}
 

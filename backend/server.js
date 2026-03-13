@@ -13,7 +13,8 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const filePath = path.join(__dirname, "data", "rsvps.json");
+const dataDir = path.join(__dirname, "data");
+const filePath = path.join(dataDir, "rsvps.json");
 const frontendPath = path.join(__dirname, "..", "dist");
 
 // Mail transporter
@@ -55,7 +56,10 @@ app.post("/api/rsvp", async (req, res) => {
     }
 
     let existingData = [];
-
+    // Ensure data folder exists
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
     if (fs.existsSync(filePath)) {
       const fileContent = fs.readFileSync(filePath, "utf-8");
       existingData = fileContent ? JSON.parse(fileContent) : [];
@@ -86,8 +90,7 @@ app.post("/api/rsvp", async (req, res) => {
         <h2>New RSVP Received</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Selected Events:</strong> ${
-          events && events.length ? events.join(", ") : "None selected"
+        <p><strong>Selected Events:</strong> ${events && events.length ? events.join(", ") : "None selected"
         }</p>
         <p><strong>Guests:</strong> ${guests || "1"}</p>
         <p><strong>Attending:</strong> ${attending}</p>
@@ -103,8 +106,7 @@ app.post("/api/rsvp", async (req, res) => {
       html: `
         <h2>Thank you for your RSVP, ${name}!</h2>
         <p>We have received your response.</p>
-        <p><strong>Selected Events:</strong> ${
-          events && events.length ? events.join(", ") : "None selected"
+        <p><strong>Selected Events:</strong> ${events && events.length ? events.join(", ") : "None selected"
         }</p>
         <p><strong>Guests:</strong> ${guests || "1"}</p>
         <p><strong>Attending:</strong> ${attending}</p>

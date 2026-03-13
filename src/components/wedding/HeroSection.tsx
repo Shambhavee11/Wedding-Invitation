@@ -115,7 +115,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 1.8 }}
           className="font-serif text-lg md:text-xl text-white/80 tracking-wide mb-2"
         >
-          April 26-30, 2026
+          April 26-29, 2026
         </motion.p>
 
         <motion.p

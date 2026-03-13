@@ -2,9 +2,9 @@ import HeroSection from "@/components/wedding/HeroSection";
 import EventsSection from "@/components/wedding/EventsSection";
 import CountdownSection from "@/components/wedding/CountdownSection";
 import GallerySection from "@/components/wedding/GallerySection";
-import RSVPSection from "@/components/wedding/RSVPSection";
 import FooterSection from "@/components/wedding/FooterSection";
 import VideoSection from "@/components/wedding/VideoSection";
+import AttendanceSection from "@/components/wedding/AttendanceSection";
 
 const Index = () => {
   return (
@@ -14,7 +14,7 @@ const Index = () => {
       <CountdownSection />
       <GallerySection />
       <VideoSection />
-      <RSVPSection />
+      <AttendanceSection />
       <FooterSection />
     </main>
   );

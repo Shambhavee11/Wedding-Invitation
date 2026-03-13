@@ -1,10 +1,9 @@
 import { motion } from "framer-motion";
-import { Sun, Leaf, Music, Heart, MapPin, Clock, Calendar, ExternalLink, Flower } from "lucide-react";
+import { Sun, Leaf, Music, Heart, MapPin, Clock, Calendar, ExternalLink } from "lucide-react";
 import sangeetBg from "@/assets/sangeet.jpg";
-import mehendiBg from "@/assets/mehendi.jpg";
+import mehendiBg from "@/assets/mehndi.jpg";
 import haldiBg from "@/assets/haldi.jpg";
-import weddingBg from "@/assets/wedding1.png";
-import vidaaiBg from "@/assets/vidaai.jpg";
+import weddingBg from "@/assets/wedding.png";
 
 interface EventData {
   id: string;
@@ -39,8 +38,8 @@ const events: EventData[] = [
     icon: Sun,
     title: "Haldi Ceremony",
     tagline: "A splash of sunshine & blessings",
-    date: "April 27, 2026",
-    time: "10:00 AM – 1:00 PM",
+    date: "April 26, 2026",
+    time: "1:00 PM Onwards",
     venue: "Sarla Bhawan",
     address: "Sarla Bhawan, Turkmanpur, Gorakhpur, Uttar Pradesh",
     description:
@@ -49,7 +48,8 @@ const events: EventData[] = [
     accentClass: "text-white",
     textClass: "text-white",
     borderClass: "border-white/30",
-    btnClass: "relative overflow-hidden border-yellow-400 text-yellow-400 hover:text-black hover:bg-yellow-400 transition-all duration-500 group",
+    btnClass:
+      "relative overflow-hidden border-yellow-400 text-yellow-400 hover:text-black hover:bg-yellow-400 transition-all duration-500 group",
     calendarUrl:
       "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Haldi+Ceremony&dates=20261212T043000Z/20261212T073000Z",
   },
@@ -63,12 +63,14 @@ const events: EventData[] = [
     time: "6:00 PM Onwards",
     venue: "Sarla Bhawan",
     address: "Sarla Bhawan, Turkmanpur, Gorakhpur, Uttar Pradesh",
-    description: "Haathon pe mehndi, dil mein khushi ka rang, aaj se shuru ho ek khoobsurat sa sang",
+    description:
+      "Haathon pe mehndi, dil mein khushi ka rang, aaj se shuru ho ek khoobsurat sa sang",
     bgClass: "bg-mehendi-bg",
     accentClass: "text-green-400",
     textClass: "text-green-100",
     borderClass: "border-green-400/30",
-    btnClass: "relative overflow-hidden border-yellow-400 text-yellow-400 hover:text-black hover:bg-yellow-400 transition-all duration-500 group",
+    btnClass:
+      "relative overflow-hidden border-yellow-400 text-yellow-400 hover:text-black hover:bg-yellow-400 transition-all duration-500 group",
     calendarUrl:
       "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mehendi+Ceremony&dates=20261213T093000Z/20261213T143000Z",
   },
@@ -82,12 +84,14 @@ const events: EventData[] = [
     time: "7:00 PM onwards",
     venue: "Sarla Bhawan",
     address: "Sarla Bhawan, Turkmanpur, Gorakhpur, Uttar Pradesh",
-    description: "Suron ki mehfil, khushiyon ka samaa, sangeet ki raat hai sabse haseen yeh jahaan.",
+    description:
+      "Suron ki mehfil, khushiyon ka samaa, sangeet ki raat hai sabse haseen yeh jahaan.",
     bgClass: "bg-yellow-100",
     accentClass: "text-yellow-400",
     textClass: "text-yellow-100",
     borderClass: "border-yellow-400/30",
-    btnClass: "relative overflow-hidden border-yellow-400 text-yellow-400 hover:text-black hover:bg-yellow-400 transition-all duration-500 group",
+    btnClass:
+      "relative overflow-hidden border-yellow-400 text-yellow-400 hover:text-black hover:bg-yellow-400 transition-all duration-500 group",
     calendarUrl:
       "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sangeet+Night&dates=20261214T133000Z/20261215T003000Z",
   },
@@ -110,32 +114,13 @@ const events: EventData[] = [
     couple: "Shreya & Vivek",
     groom: "Vivek Ram Tripathi",
     bride: "Shreya Shukla",
-    groomParents: "Late Mrs. Tripathi & Mr. Devi Sharan Ram Tripathi",
+    groomParents: "Bindu Tripathi & Mr. Devi Sharan Ram Tripathi",
     brideParents: "Mrs. Mamta Shukla & Mr. Prafulla Shukla ",
-    btnClass: "relative overflow-hidden border-yellow-400 text-yellow-400 hover:text-black hover:bg-yellow-400 transition-all duration-500 group",
+    btnClass:
+      "relative overflow-hidden border-yellow-400 text-yellow-400 hover:text-black hover:bg-yellow-400 transition-all duration-500 group",
     calendarUrl:
       "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Ceremony&dates=20261215T053000Z/20261215T103000Z",
   },
-  {
-  id: "vidai",
-  emoji: "🌸",
-  icon: Flower,
-  title: "Vidai",
-  tagline: "A heartfelt farewell",
-  date: "April 30, 2026",
-  time: "10:00 AM",
-  venue: "Sarla Bhawan",
-  address: "Sarla Bhawan, Turkmanpur, Gorakhpur, Uttar Pradesh",
-  description:"Babul ki duaon ko saath lekar,Aaj wo nayi zindagi ki raah par chali hai,Aankhon mein aansu aur dil mein khushiyan,Ek beti apni nayi duniya basane chali hai.",
-  bgClass: "bg-white",
-  accentClass: "text-white",
-  textClass: "text-white",
-  borderClass: "border-white/30",
-  btnClass:
-    "relative overflow-hidden border-yellow-400 text-yellow-400 hover:text-black hover:bg-yellow-400 transition-all duration-500 group",
-  calendarUrl:
-    "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Vidai&dates=20261216T043000Z/20261216T063000Z",
-}
 ];
 
 /* Event Card */
@@ -148,71 +133,85 @@ const EventCard = ({ event, index }: { event: EventData; index: number }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={`relative ${event.borderClass} border rounded-2xl p-8 md:p-12 overflow-hidden ${event.id === "sangeet" || event.id === "mehendi" || event.id === "haldi" || event.id === "wedding" || event.id === "vidai"
-        ? "bg-cover bg-center"
-        : event.bgClass
-        }`}
+      className={`relative ${event.borderClass} border rounded-2xl p-8 md:p-12 overflow-hidden ${
+        event.id === "sangeet" ||
+        event.id === "mehendi" ||
+        event.id === "haldi" ||
+        event.id === "wedding"
+          ? "bg-cover bg-center"
+          : event.bgClass
+      }`}
       style={
         event.id === "sangeet"
           ? { backgroundImage: `url(${sangeetBg})` }
           : event.id === "mehendi"
-            ? { backgroundImage: `url(${mehendiBg})` }
-            : event.id === "haldi"
-              ? { backgroundImage: `url(${haldiBg})` }
-              : event.id === "wedding"
-                ? { backgroundImage: `url(${weddingBg})` }
-                : event.id === "vidai"
-                  ? { backgroundImage: `url(${vidaaiBg})` }
-                : undefined
+          ? { backgroundImage: `url(${mehendiBg})` }
+          : event.id === "haldi"
+          ? { backgroundImage: `url(${haldiBg})` }
+          : event.id === "wedding"
+          ? { backgroundImage: `url(${weddingBg})` }
+          : undefined
       }
     >
-      {(event.id === "sangeet" || event.id === "mehendi" || event.id === "haldi" || event.id === "wedding" || event.id === "vidai") && (
+      {(event.id === "sangeet" ||
+        event.id === "mehendi" ||
+        event.id === "haldi" ||
+        event.id === "wedding") && (
         <div className="absolute inset-0 bg-black/50"></div>
       )}
 
       <div className="relative z-10">
         <div className="text-center mb-8">
-          <div className={`inline-flex items-center justify-center w-14 h-14 rounded-full ${event.borderClass} border-2 mb-4`}>
+          <div
+            className={`inline-flex items-center justify-center w-14 h-14 rounded-full ${event.borderClass} border-2 mb-4`}
+          >
             <Icon className={`w-6 h-6 ${event.accentClass}`} />
           </div>
-          <p className={`text-xs tracking-[0.3em] uppercase font-body mb-2 ${event.accentClass} opacity-80`}>
+          <p
+            className={`text-xs tracking-[0.3em] uppercase font-body mb-2 ${event.accentClass} opacity-80`}
+          >
             {event.emoji} {event.tagline}
           </p>
-          <h3 className={`font-serif text-3xl md:text-4xl ${event.textClass}`}>{event.title}</h3>
+          <h3 className={`font-serif text-3xl md:text-4xl ${event.textClass}`}>
+            {event.title}
+          </h3>
         </div>
 
-        <p className={`font-body text-sm leading-relaxed text-center mb-8 max-w-lg mx-auto ${event.textClass} opacity-70`}>
+        <p
+          className={`font-body text-sm leading-relaxed text-center mb-8 max-w-lg mx-auto ${event.textClass} opacity-70`}
+        >
           {event.description}
         </p>
 
-        {/* Wedding details (clean & simple) */}
         {event.id === "wedding" && (
           <div className="mb-6 flex justify-center">
             <div className="bg-black/50 backdrop-blur-md rounded-lg p-3 text-center text-white max-w-xs">
               <p className="font-serif text-base mb-2">{event.couple}</p>
 
               <p className="text-xs mb-2">
-
-                <span className="font-medium text-yellow-400">Bride:</span> {event.bride}
+                <span className="font-medium text-yellow-400">Bride:</span>{" "}
+                {event.bride}
                 <br />
-                <span className="font-medium text-yellow-400">Groom:</span> {event.groom}
-
+                <span className="font-medium text-yellow-400">Groom:</span>{" "}
+                {event.groom}
               </p>
 
               <div className="text-[15px] opacity-80 border-t border-white/20 pt-2">
-
                 <p className="mt-2">
-                  <span className="font-medium text-yellow-400">Bride’s Parents:</span>
+                  <span className="font-medium text-yellow-400">
+                    Bride’s Parents:
+                  </span>
                   <br />
                   {event.brideParents}
                 </p>
 
                 <p className="mt-3">
-                  <span className="font-medium text-yellow-400">Groom’s Parents:</span>
+                  <span className="font-medium text-yellow-400">
+                    Groom’s Parents:
+                  </span>
                   <br />
                   {event.groomParents}
                 </p>
-
               </div>
             </div>
           </div>
@@ -230,17 +229,23 @@ const EventCard = ({ event, index }: { event: EventData; index: number }) => {
         </div>
 
         <div className="text-center mb-8">
-          <div className={`flex items-center justify-center gap-2 ${event.textClass} opacity-80 text-sm`}>
+          <div
+            className={`flex items-center justify-center gap-2 ${event.textClass} opacity-80 text-sm`}
+          >
             <MapPin className={`w-4 h-4 ${event.accentClass}`} />
             <span className="font-body font-medium">{event.venue}</span>
           </div>
-          <p className={`font-body text-xs mt-1 ${event.textClass} opacity-50`}>{event.address}</p>
+          <p className={`font-body text-xs mt-1 ${event.textClass} opacity-50`}>
+            {event.address}
+          </p>
         </div>
 
         <div className={`rounded-xl overflow-hidden ${event.borderClass} border mb-6`}>
           <iframe
             title={`${event.title} Location`}
-            src={`https://www.google.com/maps?q=${encodeURIComponent(event.address)}&output=embed`}
+            src={`https://www.google.com/maps?q=${encodeURIComponent(
+              event.address
+            )}&output=embed`}
             width="100%"
             height="180"
             style={{ border: 0 }}

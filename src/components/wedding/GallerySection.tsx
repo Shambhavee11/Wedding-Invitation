@@ -1,48 +1,86 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Camera } from "lucide-react";
 
-import gallery1 from "@/assets/en1.jpeg";
-import gallery2 from "@/assets/en2.jpeg";
-import gallery3 from "@/assets/en3.jpeg";
-import gallery4 from "@/assets/en4.jpeg";
-import gallery5 from "@/assets/en5.jpeg";
-import gallery6 from "@/assets/en6.jpeg";
-import gallery7 from "@/assets/en7.jpeg";
-import gallery8 from "@/assets/en8.jpeg";
-import gallery9 from "@/assets/en9.jpeg";
-import gallery10 from "@/assets/en10.jpeg";
-import gallery11 from "@/assets/en11.jpeg";
-import gallery12 from "@/assets/en12.jpeg";
-import gallery13 from "@/assets/en13.jpeg";
-import gallery14 from "@/assets/en14.jpeg";
+type GalleryImage = {
+  id: number;
+  path: string;
+  src: string;
+  isPortrait?: boolean;
+};
 
-const images = [
-  { src: gallery1, alt: "Engagement moment" },
-  { src: gallery2, alt: "Ring ceremony" },
-  { src: gallery3, alt: "Couple smile" },
-  { src: gallery4, alt: "Celebration vibes" },
-  { src: gallery5, alt: "Family blessings" },
-  { src: gallery6, alt: "Happy moments" },
-  { src: gallery7, alt: "Engagement decor" },
-  { src: gallery8, alt: "Together forever" },
-  { src: gallery9, alt: "Candid shot" },
-  { src: gallery10, alt: "Romantic pose" },
-  { src: gallery11, alt: "Ring close-up" },
-  { src: gallery12, alt: "Joyful celebration" },
-  { src: gallery13, alt: "Beautiful smiles" },
-  { src: gallery14, alt: "Special memories" },
-];
+/* Import all gallery images */
+const imageModules = import.meta.glob<{ default: string }>(
+  "/src/assets/image*.jpg",
+  { eager: true }
+);
+
+/* Base image list */
+const baseImages: GalleryImage[] = Object.entries(imageModules)
+  .sort(([a], [b]) => {
+    const numA = parseInt(a.match(/\d+/)?.[0] || "0");
+    const numB = parseInt(b.match(/\d+/)?.[0] || "0");
+    return numA - numB;
+  })
+  .map(([path, mod], index) => ({
+    id: index,
+    path,
+    src: mod.default,
+  }));
+
+const INITIAL_COUNT = 3;
+const LOAD_MORE_COUNT = 5;
 
 const GallerySection = () => {
-  const [showAll, setShowAll] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
+  const [imagesWithOrientation, setImagesWithOrientation] =
+    useState<GalleryImage[]>(baseImages);
 
-  const displayedImages = showAll ? images : images.slice(0, 3);
+  useEffect(() => {
+    const detectOrientations = async () => {
+      const updatedImages: GalleryImage[] = await Promise.all(
+        baseImages.map(
+          (image) =>
+            new Promise<GalleryImage>((resolve) => {
+              const img = new Image();
+              img.src = image.src;
+
+              img.onload = () => {
+                resolve({
+                  ...image,
+                  isPortrait: img.naturalHeight > img.naturalWidth,
+                });
+              };
+
+              img.onerror = () => {
+                resolve({
+                  ...image,
+                  isPortrait: false,
+                });
+              };
+            })
+        )
+      );
+
+      const sortedImages = updatedImages.sort((a, b) => {
+        if (a.isPortrait === b.isPortrait) return a.id - b.id;
+        return Number(a.isPortrait) - Number(b.isPortrait);
+      });
+
+      setImagesWithOrientation(sortedImages);
+    };
+
+    detectOrientations();
+  }, []);
+
+  const displayedImages = useMemo(
+    () => imagesWithOrientation.slice(0, visibleCount),
+    [imagesWithOrientation, visibleCount]
+  );
 
   return (
     <section id="gallery" className="section-padding bg-background">
       <div className="max-w-6xl mx-auto">
-
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -54,53 +92,66 @@ const GallerySection = () => {
           <p className="text-xs tracking-[0.3em] uppercase text-gold font-body mb-3">
             Captured Moments
           </p>
+
           <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-4">
             Engagement Moments
           </h2>
+
           <div className="ornament-divider">
             <Camera className="w-4 h-4 text-gold" />
           </div>
         </motion.div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
           {displayedImages.map((image, index) => (
             <motion.div
-              key={index}
+              key={image.id}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="group relative aspect-square overflow-hidden rounded-xl shadow-sm"
+              transition={{ duration: 0.4, delay: index * 0.03 }}
+              className="group relative overflow-hidden rounded-2xl bg-white/20 shadow-md hover:shadow-xl transition-all duration-300 min-h-[260px] flex items-center justify-center p-3"
             >
               <img
                 src={image.src}
-                alt={image.alt}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                alt={`Gallery image ${index + 1}`}
+                className="max-w-full max-h-[400px] object-contain transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
+                data-pin-nopin="true"
+                draggable={false}
               />
 
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
-              <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <p className="text-white font-body text-xs tracking-wider">
-                  {image.alt}
-                </p>
-              </div>
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none" />
             </motion.div>
           ))}
         </div>
 
-        {/* See More Button */}
-        {images.length > 3 && (
-          <div className="text-center mt-10">
-            <button
-              onClick={() => setShowAll(!showAll)}
-              className="px-8 py-3 border border-gold text-gold font-body text-xs tracking-[0.2em] uppercase hover:bg-gold hover:text-primary-foreground transition-all duration-300 rounded-full"
-            >
-              {showAll ? "See Less" : "See More"}
-            </button>
+        {/* Buttons */}
+        {imagesWithOrientation.length > INITIAL_COUNT && (
+          <div className="mt-10 flex justify-center gap-4 flex-wrap">
+            {visibleCount < imagesWithOrientation.length && (
+              <button
+                onClick={() =>
+                  setVisibleCount((prev) =>
+                    Math.min(prev + LOAD_MORE_COUNT, imagesWithOrientation.length)
+                  )
+                }
+                className="px-8 py-3 border border-gold text-gold font-body text-xs tracking-[0.2em] uppercase hover:bg-gold hover:text-primary-foreground transition-all duration-300 rounded-full"
+              >
+                See More
+              </button>
+            )}
+
+            {visibleCount > INITIAL_COUNT && (
+              <button
+                onClick={() => setVisibleCount(INITIAL_COUNT)}
+                className="px-8 py-3 border border-gold text-gold font-body text-xs tracking-[0.2em] uppercase hover:bg-gold hover:text-primary-foreground transition-all duration-300 rounded-full"
+              >
+                See Less
+              </button>
+            )}
           </div>
         )}
-
       </div>
     </section>
   );

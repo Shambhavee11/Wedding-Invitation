@@ -56,24 +56,25 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Cinematic background video */}
+      {/* Background video */}
       <video
         autoPlay
         loop
         muted
         playsInline
         preload="auto"
-        className="absolute inset-0 w-full h-full object-cover z-0"
         poster=""
+        className="absolute inset-0 w-full h-full object-cover z-0"
       >
-        <source src="/hero-bg.mp4" type="video/mp4" />
+        <source src="/video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
       </video>
 
-      {/* Dark overlay for readability */}
-      <div className="absolute inset-0 bg-black/50 z-[1]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60 z-[1]" />
+      {/* Overlays */}
+      <div className="absolute inset-0 bg-black/35 z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/50 z-[1]" />
 
-      {/* Floating golden particles */}
+      {/* Floating particles */}
       <FloatingParticles />
 
       {/* Content */}
@@ -102,7 +103,7 @@ const HeroSection = () => {
           transition={{ duration: 1, delay: 1.5 }}
           className="h-px w-48 mx-auto mb-6"
           style={{
-            background: `linear-gradient(90deg, transparent, hsl(var(--gold)), transparent)`,
+            background: "linear-gradient(90deg, transparent, hsl(var(--gold)), transparent)",
           }}
         />
 
@@ -114,6 +115,7 @@ const HeroSection = () => {
         >
           April 27-30, 2026
         </motion.p>
+
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -122,16 +124,18 @@ const HeroSection = () => {
         >
           Gorakhpur, Uttar Pradesh
         </motion.p>
-
+        <p className="text-white/70 text-xs md:text-sm mb-4 tracking-widest uppercase font-light italic font-cursive">
+          Tap anywhere to begin the celebration 🎶
+        </p>
         <motion.button
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6, delay: 2.2 }}
-  onClick={scrollToEvents}
-  className="shimmer-btn px-10 py-3.5 border border-gold text-gold font-body text-xs tracking-[0.25em] uppercase hover:bg-gold hover:text-primary-foreground transition-all duration-500 backdrop-blur-sm bg-black/20"
->
-  View Events
-</motion.button>
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 2.2 }}
+          onClick={scrollToEvents}
+          className="shimmer-btn px-10 py-3.5 border border-gold text-gold font-body text-xs tracking-[0.25em] uppercase hover:bg-gold hover:text-primary-foreground transition-all duration-500 backdrop-blur-sm bg-black/20"
+        >
+          View Events
+        </motion.button>
       </div>
 
       {/* Scroll indicator */}

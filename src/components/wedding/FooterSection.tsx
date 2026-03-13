@@ -76,7 +76,7 @@ const FooterSection = () => {
           </audio>
 
           <p className="text-muted-foreground/40 font-body text-xs mt-12 tracking-wide">
-            Made with love • April 27-30, 2026 • Gorakhpur
+            Made with love • April 26-29, 2026 • Gorakhpur
           </p>
         </motion.div>
       </div>

@@ -4,6 +4,7 @@ import CountdownSection from "@/components/wedding/CountdownSection";
 import GallerySection from "@/components/wedding/GallerySection";
 import RSVPSection from "@/components/wedding/RSVPSection";
 import FooterSection from "@/components/wedding/FooterSection";
+import VideoSection from "@/components/wedding/VideoSection";
 
 const Index = () => {
   return (
@@ -12,6 +13,7 @@ const Index = () => {
       <EventsSection />
       <CountdownSection />
       <GallerySection />
+      <VideoSection />
       <RSVPSection />
       <FooterSection />
     </main>

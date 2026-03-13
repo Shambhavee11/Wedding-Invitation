@@ -55,7 +55,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
       {/* Background video */}
       <video
         autoPlay
@@ -63,16 +63,17 @@ const HeroSection = () => {
         muted
         playsInline
         preload="auto"
-        poster=""
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        poster="/poster.jpg"
+        className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="/video.mp4" type="video/mp4" />
+        <source src="/videoo.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      {/* Overlays */}
-      <div className="absolute inset-0 bg-black/35 z-[1]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/50 z-[1]" />
+      {/* Cinematic overlays */}
+      <div className="absolute inset-0 bg-black/30 z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/65 z-[1]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_35%,rgba(0,0,0,0.28)_100%)] z-[1]" />
 
       {/* Floating particles */}
       <FloatingParticles />
@@ -103,7 +104,8 @@ const HeroSection = () => {
           transition={{ duration: 1, delay: 1.5 }}
           className="h-px w-48 mx-auto mb-6"
           style={{
-            background: "linear-gradient(90deg, transparent, hsl(var(--gold)), transparent)",
+            background:
+              "linear-gradient(90deg, transparent, hsl(var(--gold)), transparent)",
           }}
         />
 
@@ -124,9 +126,11 @@ const HeroSection = () => {
         >
           Gorakhpur, Uttar Pradesh
         </motion.p>
+
         <p className="text-white/70 text-xs md:text-sm mb-4 tracking-widest uppercase font-light italic font-cursive">
           Tap anywhere to begin the celebration 🎶
         </p>
+
         <motion.button
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

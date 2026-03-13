@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 const fs = require("fs");
 const path = require("path");
 
@@ -13,27 +13,11 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 const dataDir = path.join(__dirname, "data");
 const filePath = path.join(dataDir, "rsvps.json");
 const frontendPath = path.join(__dirname, "..", "dist");
-
-// Mail transporter
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
-
-// Check mail connection when server starts
-transporter.verify((error) => {
-  if (error) {
-    console.error("Mail transporter error:", error);
-  } else {
-    console.log("Mail transporter is ready");
-  }
-});
 
 // Optional backend health route
 app.get("/api/health", (req, res) => {
@@ -56,10 +40,12 @@ app.post("/api/rsvp", async (req, res) => {
     }
 
     let existingData = [];
+
     // Ensure data folder exists
     if (!fs.existsSync(dataDir)) {
       fs.mkdirSync(dataDir, { recursive: true });
     }
+
     if (fs.existsSync(filePath)) {
       const fileContent = fs.readFileSync(filePath, "utf-8");
       existingData = fileContent ? JSON.parse(fileContent) : [];
@@ -81,46 +67,42 @@ app.post("/api/rsvp", async (req, res) => {
     fs.writeFileSync(filePath, JSON.stringify(existingData, null, 2));
     console.log("RSVP saved to JSON successfully");
 
-    // Mail to you
-    const ownerMailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
-      subject: `New Wedding RSVP from ${name}`,
-      html: `
-        <h2>New RSVP Received</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Selected Events:</strong> ${events && events.length ? events.join(", ") : "None selected"
-        }</p>
-        <p><strong>Guests:</strong> ${guests || "1"}</p>
-        <p><strong>Attending:</strong> ${attending}</p>
-        <p><strong>Message:</strong> ${message || "No message"}</p>
-      `,
-    };
-
-    // Confirmation mail to guest
-    const guestMailOptions = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: "RSVP Confirmation",
-      html: `
-        <h2>Thank you for your RSVP, ${name}!</h2>
-        <p>We have received your response.</p>
-        <p><strong>Selected Events:</strong> ${events && events.length ? events.join(", ") : "None selected"
-        }</p>
-        <p><strong>Guests:</strong> ${guests || "1"}</p>
-        <p><strong>Attending:</strong> ${attending}</p>
-      `,
-    };
-
     let emailStatus = "RSVP saved and emails sent successfully";
 
     try {
       console.log("Sending email to owner...");
-      await transporter.sendMail(ownerMailOptions);
+      await resend.emails.send({
+        from: "Wedding RSVP <onboarding@resend.dev>",
+        to: "weddingshreyaandvivek@gmail.com",
+        subject: `New Wedding RSVP from ${name}`,
+        html: `
+          <h2>New RSVP Received</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Selected Events:</strong> ${
+            events && events.length ? events.join(", ") : "None selected"
+          }</p>
+          <p><strong>Guests:</strong> ${guests || "1"}</p>
+          <p><strong>Attending:</strong> ${attending}</p>
+          <p><strong>Message:</strong> ${message || "No message"}</p>
+        `,
+      });
 
       console.log("Sending confirmation email to guest...");
-      await transporter.sendMail(guestMailOptions);
+      await resend.emails.send({
+        from: "Wedding RSVP <onboarding@resend.dev>",
+        to: email,
+        subject: "RSVP Confirmation",
+        html: `
+          <h2>Thank you for your RSVP, ${name}!</h2>
+          <p>We have received your response.</p>
+          <p><strong>Selected Events:</strong> ${
+            events && events.length ? events.join(", ") : "None selected"
+          }</p>
+          <p><strong>Guests:</strong> ${guests || "1"}</p>
+          <p><strong>Attending:</strong> ${attending}</p>
+        `,
+      });
 
       console.log("Both emails sent successfully");
     } catch (mailError) {

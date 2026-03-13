@@ -391,5 +391,17 @@
     "attending": "yes",
     "message": "qeffvgfv",
     "submittedAt": "2026-03-13T07:33:17.507Z"
+  },
+  {
+    "id": 1773389042164,
+    "name": "Shambhavee Shukla",
+    "email": "shuklashambhavee11@gmail.com",
+    "events": [
+      "Haldi"
+    ],
+    "guests": "1",
+    "attending": "yes",
+    "message": "av;ac;v",
+    "submittedAt": "2026-03-13T08:04:02.164Z"
   }
 ]

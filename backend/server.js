@@ -14,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 const filePath = path.join(__dirname, "data", "rsvps.json");
+const frontendPath = path.join(__dirname, "..", "dist");
 
 // Mail transporter
 const transporter = nodemailer.createTransport({
@@ -25,7 +26,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Check mail connection when server starts
-transporter.verify((error, success) => {
+transporter.verify((error) => {
   if (error) {
     console.error("Mail transporter error:", error);
   } else {
@@ -33,9 +34,9 @@ transporter.verify((error, success) => {
   }
 });
 
-// Test route
-app.get("/", (req, res) => {
-  res.send("Backend is running");
+// Optional backend health route
+app.get("/api/health", (req, res) => {
+  res.json({ success: true, message: "Backend is running" });
 });
 
 // RSVP submit route
@@ -88,7 +89,7 @@ app.post("/api/rsvp", async (req, res) => {
         <p><strong>Selected Events:</strong> ${
           events && events.length ? events.join(", ") : "None selected"
         }</p>
-        <p><strong>Guests:</strong> ${guests}</p>
+        <p><strong>Guests:</strong> ${guests || "1"}</p>
         <p><strong>Attending:</strong> ${attending}</p>
         <p><strong>Message:</strong> ${message || "No message"}</p>
       `,
@@ -105,7 +106,7 @@ app.post("/api/rsvp", async (req, res) => {
         <p><strong>Selected Events:</strong> ${
           events && events.length ? events.join(", ") : "None selected"
         }</p>
-        <p><strong>Guests:</strong> ${guests}</p>
+        <p><strong>Guests:</strong> ${guests || "1"}</p>
         <p><strong>Attending:</strong> ${attending}</p>
       `,
     };
@@ -152,6 +153,14 @@ app.get("/api/rsvps", (req, res) => {
     console.error("Error reading RSVPs:", error);
     res.status(500).json({ message: "Error reading RSVP data" });
   }
+});
+
+// Serve frontend static files
+app.use(express.static(frontendPath));
+
+// React/Vite fallback for all non-API routes
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
 });
 
 app.listen(PORT, () => {

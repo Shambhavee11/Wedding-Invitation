@@ -72,7 +72,7 @@ app.post("/api/rsvp", async (req, res) => {
     try {
       console.log("Sending email to owner...");
       await resend.emails.send({
-        from: "Wedding RSVP <onboarding@resend.dev>",
+        from: "Wedding RSVP <rsvp@happyeverafter.com>",
         to: "weddingshreyaandvivek@gmail.com",
         subject: `New Wedding RSVP from ${name}`,
         html: `
